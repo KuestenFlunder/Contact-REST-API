@@ -34,6 +34,8 @@ public class ContactController {
         contactService.saveContact(contact);
         return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
     }
+
+    @Put
     
 
 }
