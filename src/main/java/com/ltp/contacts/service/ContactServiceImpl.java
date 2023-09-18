@@ -14,8 +14,6 @@ public class ContactServiceImpl implements ContactService {
     private ContactRepository contactRepository;
     
 
-
-
     private int findIndexById(String id) {
         return IntStream.range(0, contactRepository.getContacts().size())
             .filter(index -> contactRepository.getContacts().get(index).getId().equals(id))
