@@ -9,12 +9,6 @@ public class Contact {
     private String phoneNumber;
 
 
-    public Contact(String id, String name, String phoneNumber) {
-        this.id = id;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-    }
-
     public Contact() {
         this.id = UUID.randomUUID().toString();
     }
@@ -41,6 +35,15 @@ public class Contact {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", name='" + getName() + "'" +
+            ", phoneNumber='" + getPhoneNumber() + "'" +
+            "}";
     }
 
 }
