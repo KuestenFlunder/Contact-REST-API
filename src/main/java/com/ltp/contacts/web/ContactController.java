@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -33,6 +35,12 @@ public class ContactController {
     public ResponseEntity<HttpStatus> createContact(@RequestBody Contact contact) {
         contactService.saveContact(contact);
         return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
+    }
+
+    @PutMapping(value="contact/{id}")
+    public ResponseEntity<Contact> updateContacEntity(@PathVariable String id, @RequestBody Contact contact) {
+        contactService.updateContact(id, contact);
+        return new ResponseEntity<Contact>(contactService.getContactById(id), HttpStatus.OK);
     }
     
 
