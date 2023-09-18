@@ -30,4 +30,11 @@ public class ContactServiceImpl implements ContactService {
      return contactRepository.getContact(findIndexById(id));
     }
 
+
+
+    @Override
+    public void saveContact(Contact conatact) {
+       contactRepository.saveContact(conatact);
+    }
+
 }

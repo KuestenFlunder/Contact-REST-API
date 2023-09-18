@@ -37,4 +37,13 @@ public class Contact {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", name='" + getName() + "'" +
+            ", phoneNumber='" + getPhoneNumber() + "'" +
+            "}";
+    }
+
 }

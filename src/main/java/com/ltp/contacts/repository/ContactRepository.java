@@ -22,6 +22,7 @@ public class ContactRepository {
     }
 
     public void saveContact(Contact contact) {
+        System.out.println(contact.toString());
         contacts.add(contact);
     }
 
