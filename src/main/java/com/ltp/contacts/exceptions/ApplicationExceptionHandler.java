@@ -10,7 +10,8 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler(ContactNotFoundException.class)
     public ResponseEntity<Object> handleContactNotFoundException(ContactNotFoundException contactNotFoundException) {
-        return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+        ErrorResponse errorResponse = new ErrorResponse(contactNotFoundException.getMessage());
+        return new ResponseEntity<Object>(errorResponse,HttpStatus.NOT_FOUND);
     };
 
 }
