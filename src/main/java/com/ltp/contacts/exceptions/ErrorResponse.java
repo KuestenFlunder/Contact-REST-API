@@ -1,13 +1,11 @@
 package com.ltp.contacts.exceptions;
 import java.time.LocalDateTime;
-import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ErrorResponse {
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime timestamp;
-    private String massage;
+    private String message;
 
 
 
@@ -18,15 +16,15 @@ public class ErrorResponse {
 
     public ErrorResponse(String massage) {
         this.timestamp = LocalDateTime.now();
-        this.massage = massage;
+        this.message = massage;
     }
 
     public String getMassage() {
-        return this.massage;
+        return this.message;
     }
 
     public void setMassage(String massage) {
-        this.massage = massage;
+        this.message = massage;
     }
 
 
