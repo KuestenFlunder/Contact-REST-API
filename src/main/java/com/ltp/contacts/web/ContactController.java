@@ -33,8 +33,13 @@ public class ContactController {
     @GetMapping(value = "/contact/{id}")
     // @ResponseBody --> serialise to JSON
     public ResponseEntity<Contact> getContact(@PathVariable String id) {
-        Contact contact = contactService.getContactById(id);
-        return new ResponseEntity<Contact>(contact, HttpStatus.OK);
+        try {
+            Contact contact = contactService.getContactById(id);
+            return new ResponseEntity<>(contact, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = "/contact")
@@ -46,14 +51,24 @@ public class ContactController {
 
     @PutMapping(value = "contact/{id}")
     public ResponseEntity<Contact> updateContacEntity(@PathVariable String id, @RequestBody Contact contact) {
-        contactService.updateContact(id, contact);
-        return new ResponseEntity<Contact>(contactService.getContactById(id), HttpStatus.OK);
+        try {
+            contactService.updateContact(id, contact);
+            return new ResponseEntity<Contact>(contactService.getContactById(id), HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping(value = "contact/{id}")
     public ResponseEntity<HttpStatus> deleteContact(@PathVariable String id) {
-        contactService.deleteContact(id);
-        return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
+        try {
+            contactService.deleteContact(id);
+            return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
+            
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
