@@ -1,18 +1,18 @@
 package com.ltp.contacts.service;
 
-import com.ltp.contacts.exceptions.NoContactException;
+
 import com.ltp.contacts.pojo.Contact;
 import java.util.List;
 
 public interface ContactService {
 
-    Contact getContactById(String id) throws NoContactException;
+    Contact getContactById(String id) ;
 
     void saveContact(Contact conatact);
 
-    void updateContact(String id, Contact contact)throws NoContactException;
+    void updateContact(String id, Contact contact);
 
-    void deleteContact(String id)throws NoContactException;
+    void deleteContact(String id);
 
     List<Contact> getContacts();
 }
