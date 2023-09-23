@@ -67,6 +67,7 @@ public void getAllContactsTest() throws Exception{
 	.andExpect(status().isOk())
 	.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 	.andExpect(jsonPath("$.size()").value(contacts.length))
+	.andExpect(jsonPath("$[2].name").value(contacts[2].getName()))
 	;
 }
 
