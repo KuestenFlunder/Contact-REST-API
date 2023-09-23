@@ -19,7 +19,6 @@ import org.apache.catalina.connector.Request;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
 class ContactsApplicationTests {
@@ -53,24 +52,36 @@ public void getContactByIdTest() throws Exception {
 	RequestBuilder request = MockMvcRequestBuilders.get("/contact/1");
 	
 	mockMvc.perform(request)
-			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$.name").value(contacts[0].getName()))
-			.andExpect(jsonPath("$.phoneNumber").value(contacts[0].getPhoneNumber()));
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$.name").value(contacts[0].getName()))
+		.andExpect(jsonPath("$.phoneNumber").value(contacts[0].getPhoneNumber()));
 }
-
 
 @Test
 public void getAllContactsTest() throws Exception{
 	RequestBuilder request = MockMvcRequestBuilders.get("/contact/all");
+	
 	mockMvc.perform(request)
-	.andExpect(status().isOk())
-	.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-	.andExpect(jsonPath("$.size()").value(contacts.length))
-	.andExpect(jsonPath("$[2].name").value(contacts[2].getName()))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$.size()").value(contacts.length))
+		.andExpect(jsonPath("$[2].name").value(contacts[2].getName()))
 	;
 }
 
+@Test
+public void contactNotFoundTest() throws Exception{
+	RequestBuilder request = MockMvcRequestBuilders.get("/contact/4");
+	
+	mockMvc.perform(request)
+		.andExpect(status().isNotFound());
 
+}
+
+@Test
+public void validContactCreationTest() throws Exception{
+	RequestBuilder request = MockMvcRequestBuilders.post("/contacts", contacts);
+}
 
 }
