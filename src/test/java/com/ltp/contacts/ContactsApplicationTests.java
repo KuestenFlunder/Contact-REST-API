@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ltp.contacts.pojo.Contact;
 import com.ltp.contacts.repository.ContactRepository;
 
@@ -25,6 +26,9 @@ class ContactsApplicationTests {
 
 @Autowired
 private MockMvc mockMvc;
+
+@Autowired
+ObjectMapper objectMapper;
 
 @Autowired
 private ContactRepository contactRepository;
@@ -66,8 +70,7 @@ public void getAllContactsTest() throws Exception{
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 		.andExpect(jsonPath("$.size()").value(contacts.length))
-		.andExpect(jsonPath("$[2].name").value(contacts[2].getName()))
-	;
+		.andExpect(jsonPath("$[2].name").value(contacts[2].getName()));
 }
 
 @Test
@@ -76,12 +79,41 @@ public void contactNotFoundTest() throws Exception{
 	
 	mockMvc.perform(request)
 		.andExpect(status().isNotFound());
-
 }
 
 @Test
 public void validContactCreationTest() throws Exception{
-	RequestBuilder request = MockMvcRequestBuilders.post("/contacts", contacts);
+	RequestBuilder request = MockMvcRequestBuilders
+		.post("/contact")
+		.contentType(MediaType.APPLICATION_JSON)
+		.content(objectMapper.writeValueAsString(new Contact( "Wendy Darling","456")));
+
+	mockMvc.perform(request)
+		.andExpect(status().isCreated());
 }
+@Test
+public void invalidContactCreationTest() throws Exception{
+	RequestBuilder request = MockMvcRequestBuilders
+		.post("/contact")
+		.contentType(MediaType.APPLICATION_JSON)
+		.content(objectMapper.writeValueAsString(new Contact( " "," ")));
+
+	mockMvc.perform(request)
+		.andExpect(status().isBadRequest());
+}
+
+@Test
+public void updateContactTest() throws Exception{
+	RequestBuilder request = MockMvcRequestBuilders
+		.put("/contact/1")
+		.contentType(MediaType.APPLICATION_JSON)
+		.content(objectMapper.writeValueAsString(new Contact("1","Winnie Puh","789")));
+
+	mockMvc.perform(request)
+		   .andExpect(status().isOk())
+		   .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+		   .andExpect(jsonPath("$.name").value("Winnie Puh"));
+}
+
 
 }
