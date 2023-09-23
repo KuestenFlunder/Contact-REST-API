@@ -12,6 +12,18 @@ public class Contact {
     @NotBlank(message = "Number can not be blank")
     private String phoneNumber;
 
+    public Contact(String id, String name, String phoneNumber) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+
+    public Contact(String name, String phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+    
 
     public Contact() {
         this.id = UUID.randomUUID().toString();
@@ -44,10 +56,10 @@ public class Contact {
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            ", name='" + getName() + "'" +
-            ", phoneNumber='" + getPhoneNumber() + "'" +
-            "}";
+                " id='" + getId() + "'" +
+                ", name='" + getName() + "'" +
+                ", phoneNumber='" + getPhoneNumber() + "'" +
+                "}";
     }
 
 }
