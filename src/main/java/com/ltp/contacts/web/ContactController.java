@@ -8,21 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.ltp.contacts.pojo.Contact;
+import com.ltp.contacts.entity.Contact;
 import com.ltp.contacts.service.ContactService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 //@Tag(name = "Contact Controller",description = "Create and retrieve contacts ")
+@RequestMapping(value = "/contacts")
 @RestController // Makes the @ResponseBody annotation obsolete for every method.
 public class ContactController {
 
@@ -31,7 +26,7 @@ public class ContactController {
 
     @Operation(summary = "Retrieves Contacts", description = "Provides a list of all contacts")
     @Tag(name = "GET contacts")
-    @GetMapping("/contact/all")
+    @GetMapping
     public ResponseEntity<List<Contact>> getContacts() {
         List<Contact> contacts = contactService.getContacts();
         return new ResponseEntity<>(contacts, HttpStatus.OK);
@@ -39,7 +34,7 @@ public class ContactController {
 
     @Operation(summary = "Get contact by Id", description = "Returns a contact based on an ID")
     @Tag(name = "GET contacts")
-    @GetMapping("/contact/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Contact> getContact(@PathVariable String id) {
         Contact contact = contactService.getContactById(id);
         return new ResponseEntity<>(contact, HttpStatus.OK);
