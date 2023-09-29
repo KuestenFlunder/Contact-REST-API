@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.ltp.contacts.pojo.Contact;
+import com.ltp.contacts.entity.Contact;
 
 @Repository
 public class ContactRepository {

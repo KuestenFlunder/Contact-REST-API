@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ltp.contacts.pojo.Contact;
+import com.ltp.contacts.entity.Contact;
 import com.ltp.contacts.repository.ContactRepository;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
